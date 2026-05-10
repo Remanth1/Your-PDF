@@ -7,6 +7,8 @@ import {
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
+import { Header } from "@/components/Header";
+import { Footer } from "@/components/Footer";
 
 import appCss from "../styles.css?url";
 
@@ -72,14 +74,20 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { title: "Fileforge — Free private PDF & document tools" },
+      {
+        name: "description",
+        content:
+          "Merge, compress, convert, and OCR PDFs in your browser. No sign-up, no uploads, no ads in your face. 100% private.",
+      },
+      { property: "og:title", content: "Fileforge — Free private PDF & document tools" },
+      {
+        property: "og:description",
+        content:
+          "Merge, compress, convert, and OCR PDFs in your browser. No sign-up, no uploads.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
-      { name: "twitter:site", content: "@Lovable" },
     ],
     links: [
       {
