@@ -9,8 +9,56 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as WordToPdfRouteImport } from './routes/word-to-pdf'
+import { Route as TermsRouteImport } from './routes/terms'
+import { Route as PrivacyRouteImport } from './routes/privacy'
+import { Route as PdfToWordRouteImport } from './routes/pdf-to-word'
+import { Route as OcrPdfRouteImport } from './routes/ocr-pdf'
+import { Route as MergePdfRouteImport } from './routes/merge-pdf'
+import { Route as JpgToPdfRouteImport } from './routes/jpg-to-pdf'
+import { Route as CompressPdfRouteImport } from './routes/compress-pdf'
 import { Route as IndexRouteImport } from './routes/index'
 
+const WordToPdfRoute = WordToPdfRouteImport.update({
+  id: '/word-to-pdf',
+  path: '/word-to-pdf',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TermsRoute = TermsRouteImport.update({
+  id: '/terms',
+  path: '/terms',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrivacyRoute = PrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PdfToWordRoute = PdfToWordRouteImport.update({
+  id: '/pdf-to-word',
+  path: '/pdf-to-word',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OcrPdfRoute = OcrPdfRouteImport.update({
+  id: '/ocr-pdf',
+  path: '/ocr-pdf',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MergePdfRoute = MergePdfRouteImport.update({
+  id: '/merge-pdf',
+  path: '/merge-pdf',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const JpgToPdfRoute = JpgToPdfRouteImport.update({
+  id: '/jpg-to-pdf',
+  path: '/jpg-to-pdf',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CompressPdfRoute = CompressPdfRouteImport.update({
+  id: '/compress-pdf',
+  path: '/compress-pdf',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -19,28 +67,144 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/compress-pdf': typeof CompressPdfRoute
+  '/jpg-to-pdf': typeof JpgToPdfRoute
+  '/merge-pdf': typeof MergePdfRoute
+  '/ocr-pdf': typeof OcrPdfRoute
+  '/pdf-to-word': typeof PdfToWordRoute
+  '/privacy': typeof PrivacyRoute
+  '/terms': typeof TermsRoute
+  '/word-to-pdf': typeof WordToPdfRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/compress-pdf': typeof CompressPdfRoute
+  '/jpg-to-pdf': typeof JpgToPdfRoute
+  '/merge-pdf': typeof MergePdfRoute
+  '/ocr-pdf': typeof OcrPdfRoute
+  '/pdf-to-word': typeof PdfToWordRoute
+  '/privacy': typeof PrivacyRoute
+  '/terms': typeof TermsRoute
+  '/word-to-pdf': typeof WordToPdfRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/compress-pdf': typeof CompressPdfRoute
+  '/jpg-to-pdf': typeof JpgToPdfRoute
+  '/merge-pdf': typeof MergePdfRoute
+  '/ocr-pdf': typeof OcrPdfRoute
+  '/pdf-to-word': typeof PdfToWordRoute
+  '/privacy': typeof PrivacyRoute
+  '/terms': typeof TermsRoute
+  '/word-to-pdf': typeof WordToPdfRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/compress-pdf'
+    | '/jpg-to-pdf'
+    | '/merge-pdf'
+    | '/ocr-pdf'
+    | '/pdf-to-word'
+    | '/privacy'
+    | '/terms'
+    | '/word-to-pdf'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/compress-pdf'
+    | '/jpg-to-pdf'
+    | '/merge-pdf'
+    | '/ocr-pdf'
+    | '/pdf-to-word'
+    | '/privacy'
+    | '/terms'
+    | '/word-to-pdf'
+  id:
+    | '__root__'
+    | '/'
+    | '/compress-pdf'
+    | '/jpg-to-pdf'
+    | '/merge-pdf'
+    | '/ocr-pdf'
+    | '/pdf-to-word'
+    | '/privacy'
+    | '/terms'
+    | '/word-to-pdf'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  CompressPdfRoute: typeof CompressPdfRoute
+  JpgToPdfRoute: typeof JpgToPdfRoute
+  MergePdfRoute: typeof MergePdfRoute
+  OcrPdfRoute: typeof OcrPdfRoute
+  PdfToWordRoute: typeof PdfToWordRoute
+  PrivacyRoute: typeof PrivacyRoute
+  TermsRoute: typeof TermsRoute
+  WordToPdfRoute: typeof WordToPdfRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/word-to-pdf': {
+      id: '/word-to-pdf'
+      path: '/word-to-pdf'
+      fullPath: '/word-to-pdf'
+      preLoaderRoute: typeof WordToPdfRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/terms': {
+      id: '/terms'
+      path: '/terms'
+      fullPath: '/terms'
+      preLoaderRoute: typeof TermsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/privacy': {
+      id: '/privacy'
+      path: '/privacy'
+      fullPath: '/privacy'
+      preLoaderRoute: typeof PrivacyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pdf-to-word': {
+      id: '/pdf-to-word'
+      path: '/pdf-to-word'
+      fullPath: '/pdf-to-word'
+      preLoaderRoute: typeof PdfToWordRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ocr-pdf': {
+      id: '/ocr-pdf'
+      path: '/ocr-pdf'
+      fullPath: '/ocr-pdf'
+      preLoaderRoute: typeof OcrPdfRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/merge-pdf': {
+      id: '/merge-pdf'
+      path: '/merge-pdf'
+      fullPath: '/merge-pdf'
+      preLoaderRoute: typeof MergePdfRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/jpg-to-pdf': {
+      id: '/jpg-to-pdf'
+      path: '/jpg-to-pdf'
+      fullPath: '/jpg-to-pdf'
+      preLoaderRoute: typeof JpgToPdfRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/compress-pdf': {
+      id: '/compress-pdf'
+      path: '/compress-pdf'
+      fullPath: '/compress-pdf'
+      preLoaderRoute: typeof CompressPdfRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -53,17 +217,15 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  CompressPdfRoute: CompressPdfRoute,
+  JpgToPdfRoute: JpgToPdfRoute,
+  MergePdfRoute: MergePdfRoute,
+  OcrPdfRoute: OcrPdfRoute,
+  PdfToWordRoute: PdfToWordRoute,
+  PrivacyRoute: PrivacyRoute,
+  TermsRoute: TermsRoute,
+  WordToPdfRoute: WordToPdfRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
