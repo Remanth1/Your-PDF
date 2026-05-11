@@ -1,0 +1,46 @@
+openapi: 3.1.0
+info:
+  title: Fileforge Conversion API
+  version: 0.1.0
+servers:
+  - url: /api
+paths:
+  /jobs:
+    post:
+      summary: Create a conversion job
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                source:
+                  type: string
+                target:
+                  type: string
+                options:
+                  type: object
+      responses:
+        '201':
+          description: Job created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  jobId:
+                    type: string
+                  uploadUrl:
+                    type: string
+  /jobs/{jobId}:
+    get:
+      summary: Get job status
+      parameters:
+        - name: jobId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: job status

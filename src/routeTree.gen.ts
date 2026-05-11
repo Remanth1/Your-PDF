@@ -9,16 +9,38 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as YamlToJsonRouteImport } from './routes/yaml-to-json'
+import { Route as XmlToJsonRouteImport } from './routes/xml-to-json'
 import { Route as WordToPdfRouteImport } from './routes/word-to-pdf'
 import { Route as TermsRouteImport } from './routes/terms'
+import { Route as SplitPdfRouteImport } from './routes/split-pdf'
+import { Route as RotatePdfRouteImport } from './routes/rotate-pdf'
 import { Route as PrivacyRouteImport } from './routes/privacy'
+import { Route as PngToJpgRouteImport } from './routes/png-to-jpg'
 import { Route as PdfToWordRouteImport } from './routes/pdf-to-word'
 import { Route as OcrPdfRouteImport } from './routes/ocr-pdf'
+import { Route as Mp4ToMp3RouteImport } from './routes/mp4-to-mp3'
 import { Route as MergePdfRouteImport } from './routes/merge-pdf'
+import { Route as JsonToYamlRouteImport } from './routes/json-to-yaml'
+import { Route as JsonToCsvRouteImport } from './routes/json-to-csv'
+import { Route as JpgToPngRouteImport } from './routes/jpg-to-png'
 import { Route as JpgToPdfRouteImport } from './routes/jpg-to-pdf'
+import { Route as CsvToJsonRouteImport } from './routes/csv-to-json'
 import { Route as CompressPdfRouteImport } from './routes/compress-pdf'
+import { Route as AiPdfRouteImport } from './routes/ai-pdf'
+import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 
+const YamlToJsonRoute = YamlToJsonRouteImport.update({
+  id: '/yaml-to-json',
+  path: '/yaml-to-json',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const XmlToJsonRoute = XmlToJsonRouteImport.update({
+  id: '/xml-to-json',
+  path: '/xml-to-json',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const WordToPdfRoute = WordToPdfRouteImport.update({
   id: '/word-to-pdf',
   path: '/word-to-pdf',
@@ -29,9 +51,24 @@ const TermsRoute = TermsRouteImport.update({
   path: '/terms',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SplitPdfRoute = SplitPdfRouteImport.update({
+  id: '/split-pdf',
+  path: '/split-pdf',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RotatePdfRoute = RotatePdfRouteImport.update({
+  id: '/rotate-pdf',
+  path: '/rotate-pdf',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PrivacyRoute = PrivacyRouteImport.update({
   id: '/privacy',
   path: '/privacy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PngToJpgRoute = PngToJpgRouteImport.update({
+  id: '/png-to-jpg',
+  path: '/png-to-jpg',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PdfToWordRoute = PdfToWordRouteImport.update({
@@ -44,9 +81,29 @@ const OcrPdfRoute = OcrPdfRouteImport.update({
   path: '/ocr-pdf',
   getParentRoute: () => rootRouteImport,
 } as any)
+const Mp4ToMp3Route = Mp4ToMp3RouteImport.update({
+  id: '/mp4-to-mp3',
+  path: '/mp4-to-mp3',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const MergePdfRoute = MergePdfRouteImport.update({
   id: '/merge-pdf',
   path: '/merge-pdf',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const JsonToYamlRoute = JsonToYamlRouteImport.update({
+  id: '/json-to-yaml',
+  path: '/json-to-yaml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const JsonToCsvRoute = JsonToCsvRouteImport.update({
+  id: '/json-to-csv',
+  path: '/json-to-csv',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const JpgToPngRoute = JpgToPngRouteImport.update({
+  id: '/jpg-to-png',
+  path: '/jpg-to-png',
   getParentRoute: () => rootRouteImport,
 } as any)
 const JpgToPdfRoute = JpgToPdfRouteImport.update({
@@ -54,9 +111,24 @@ const JpgToPdfRoute = JpgToPdfRouteImport.update({
   path: '/jpg-to-pdf',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CsvToJsonRoute = CsvToJsonRouteImport.update({
+  id: '/csv-to-json',
+  path: '/csv-to-json',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CompressPdfRoute = CompressPdfRouteImport.update({
   id: '/compress-pdf',
   path: '/compress-pdf',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AiPdfRoute = AiPdfRouteImport.update({
+  id: '/ai-pdf',
+  path: '/ai-pdf',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -67,88 +139,186 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/ai-pdf': typeof AiPdfRoute
   '/compress-pdf': typeof CompressPdfRoute
+  '/csv-to-json': typeof CsvToJsonRoute
   '/jpg-to-pdf': typeof JpgToPdfRoute
+  '/jpg-to-png': typeof JpgToPngRoute
+  '/json-to-csv': typeof JsonToCsvRoute
+  '/json-to-yaml': typeof JsonToYamlRoute
   '/merge-pdf': typeof MergePdfRoute
+  '/mp4-to-mp3': typeof Mp4ToMp3Route
   '/ocr-pdf': typeof OcrPdfRoute
   '/pdf-to-word': typeof PdfToWordRoute
+  '/png-to-jpg': typeof PngToJpgRoute
   '/privacy': typeof PrivacyRoute
+  '/rotate-pdf': typeof RotatePdfRoute
+  '/split-pdf': typeof SplitPdfRoute
   '/terms': typeof TermsRoute
   '/word-to-pdf': typeof WordToPdfRoute
+  '/xml-to-json': typeof XmlToJsonRoute
+  '/yaml-to-json': typeof YamlToJsonRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/ai-pdf': typeof AiPdfRoute
   '/compress-pdf': typeof CompressPdfRoute
+  '/csv-to-json': typeof CsvToJsonRoute
   '/jpg-to-pdf': typeof JpgToPdfRoute
+  '/jpg-to-png': typeof JpgToPngRoute
+  '/json-to-csv': typeof JsonToCsvRoute
+  '/json-to-yaml': typeof JsonToYamlRoute
   '/merge-pdf': typeof MergePdfRoute
+  '/mp4-to-mp3': typeof Mp4ToMp3Route
   '/ocr-pdf': typeof OcrPdfRoute
   '/pdf-to-word': typeof PdfToWordRoute
+  '/png-to-jpg': typeof PngToJpgRoute
   '/privacy': typeof PrivacyRoute
+  '/rotate-pdf': typeof RotatePdfRoute
+  '/split-pdf': typeof SplitPdfRoute
   '/terms': typeof TermsRoute
   '/word-to-pdf': typeof WordToPdfRoute
+  '/xml-to-json': typeof XmlToJsonRoute
+  '/yaml-to-json': typeof YamlToJsonRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/ai-pdf': typeof AiPdfRoute
   '/compress-pdf': typeof CompressPdfRoute
+  '/csv-to-json': typeof CsvToJsonRoute
   '/jpg-to-pdf': typeof JpgToPdfRoute
+  '/jpg-to-png': typeof JpgToPngRoute
+  '/json-to-csv': typeof JsonToCsvRoute
+  '/json-to-yaml': typeof JsonToYamlRoute
   '/merge-pdf': typeof MergePdfRoute
+  '/mp4-to-mp3': typeof Mp4ToMp3Route
   '/ocr-pdf': typeof OcrPdfRoute
   '/pdf-to-word': typeof PdfToWordRoute
+  '/png-to-jpg': typeof PngToJpgRoute
   '/privacy': typeof PrivacyRoute
+  '/rotate-pdf': typeof RotatePdfRoute
+  '/split-pdf': typeof SplitPdfRoute
   '/terms': typeof TermsRoute
   '/word-to-pdf': typeof WordToPdfRoute
+  '/xml-to-json': typeof XmlToJsonRoute
+  '/yaml-to-json': typeof YamlToJsonRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/about'
+    | '/ai-pdf'
     | '/compress-pdf'
+    | '/csv-to-json'
     | '/jpg-to-pdf'
+    | '/jpg-to-png'
+    | '/json-to-csv'
+    | '/json-to-yaml'
     | '/merge-pdf'
+    | '/mp4-to-mp3'
     | '/ocr-pdf'
     | '/pdf-to-word'
+    | '/png-to-jpg'
     | '/privacy'
+    | '/rotate-pdf'
+    | '/split-pdf'
     | '/terms'
     | '/word-to-pdf'
+    | '/xml-to-json'
+    | '/yaml-to-json'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/about'
+    | '/ai-pdf'
     | '/compress-pdf'
+    | '/csv-to-json'
     | '/jpg-to-pdf'
+    | '/jpg-to-png'
+    | '/json-to-csv'
+    | '/json-to-yaml'
     | '/merge-pdf'
+    | '/mp4-to-mp3'
     | '/ocr-pdf'
     | '/pdf-to-word'
+    | '/png-to-jpg'
     | '/privacy'
+    | '/rotate-pdf'
+    | '/split-pdf'
     | '/terms'
     | '/word-to-pdf'
+    | '/xml-to-json'
+    | '/yaml-to-json'
   id:
     | '__root__'
     | '/'
+    | '/about'
+    | '/ai-pdf'
     | '/compress-pdf'
+    | '/csv-to-json'
     | '/jpg-to-pdf'
+    | '/jpg-to-png'
+    | '/json-to-csv'
+    | '/json-to-yaml'
     | '/merge-pdf'
+    | '/mp4-to-mp3'
     | '/ocr-pdf'
     | '/pdf-to-word'
+    | '/png-to-jpg'
     | '/privacy'
+    | '/rotate-pdf'
+    | '/split-pdf'
     | '/terms'
     | '/word-to-pdf'
+    | '/xml-to-json'
+    | '/yaml-to-json'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
+  AiPdfRoute: typeof AiPdfRoute
   CompressPdfRoute: typeof CompressPdfRoute
+  CsvToJsonRoute: typeof CsvToJsonRoute
   JpgToPdfRoute: typeof JpgToPdfRoute
+  JpgToPngRoute: typeof JpgToPngRoute
+  JsonToCsvRoute: typeof JsonToCsvRoute
+  JsonToYamlRoute: typeof JsonToYamlRoute
   MergePdfRoute: typeof MergePdfRoute
+  Mp4ToMp3Route: typeof Mp4ToMp3Route
   OcrPdfRoute: typeof OcrPdfRoute
   PdfToWordRoute: typeof PdfToWordRoute
+  PngToJpgRoute: typeof PngToJpgRoute
   PrivacyRoute: typeof PrivacyRoute
+  RotatePdfRoute: typeof RotatePdfRoute
+  SplitPdfRoute: typeof SplitPdfRoute
   TermsRoute: typeof TermsRoute
   WordToPdfRoute: typeof WordToPdfRoute
+  XmlToJsonRoute: typeof XmlToJsonRoute
+  YamlToJsonRoute: typeof YamlToJsonRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/yaml-to-json': {
+      id: '/yaml-to-json'
+      path: '/yaml-to-json'
+      fullPath: '/yaml-to-json'
+      preLoaderRoute: typeof YamlToJsonRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/xml-to-json': {
+      id: '/xml-to-json'
+      path: '/xml-to-json'
+      fullPath: '/xml-to-json'
+      preLoaderRoute: typeof XmlToJsonRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/word-to-pdf': {
       id: '/word-to-pdf'
       path: '/word-to-pdf'
@@ -163,11 +333,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TermsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/split-pdf': {
+      id: '/split-pdf'
+      path: '/split-pdf'
+      fullPath: '/split-pdf'
+      preLoaderRoute: typeof SplitPdfRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/rotate-pdf': {
+      id: '/rotate-pdf'
+      path: '/rotate-pdf'
+      fullPath: '/rotate-pdf'
+      preLoaderRoute: typeof RotatePdfRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/privacy': {
       id: '/privacy'
       path: '/privacy'
       fullPath: '/privacy'
       preLoaderRoute: typeof PrivacyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/png-to-jpg': {
+      id: '/png-to-jpg'
+      path: '/png-to-jpg'
+      fullPath: '/png-to-jpg'
+      preLoaderRoute: typeof PngToJpgRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/pdf-to-word': {
@@ -184,11 +375,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof OcrPdfRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/mp4-to-mp3': {
+      id: '/mp4-to-mp3'
+      path: '/mp4-to-mp3'
+      fullPath: '/mp4-to-mp3'
+      preLoaderRoute: typeof Mp4ToMp3RouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/merge-pdf': {
       id: '/merge-pdf'
       path: '/merge-pdf'
       fullPath: '/merge-pdf'
       preLoaderRoute: typeof MergePdfRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/json-to-yaml': {
+      id: '/json-to-yaml'
+      path: '/json-to-yaml'
+      fullPath: '/json-to-yaml'
+      preLoaderRoute: typeof JsonToYamlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/json-to-csv': {
+      id: '/json-to-csv'
+      path: '/json-to-csv'
+      fullPath: '/json-to-csv'
+      preLoaderRoute: typeof JsonToCsvRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/jpg-to-png': {
+      id: '/jpg-to-png'
+      path: '/jpg-to-png'
+      fullPath: '/jpg-to-png'
+      preLoaderRoute: typeof JpgToPngRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/jpg-to-pdf': {
@@ -198,11 +417,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof JpgToPdfRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/csv-to-json': {
+      id: '/csv-to-json'
+      path: '/csv-to-json'
+      fullPath: '/csv-to-json'
+      preLoaderRoute: typeof CsvToJsonRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/compress-pdf': {
       id: '/compress-pdf'
       path: '/compress-pdf'
       fullPath: '/compress-pdf'
       preLoaderRoute: typeof CompressPdfRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ai-pdf': {
+      id: '/ai-pdf'
+      path: '/ai-pdf'
+      fullPath: '/ai-pdf'
+      preLoaderRoute: typeof AiPdfRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -217,15 +457,37 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
+  AiPdfRoute: AiPdfRoute,
   CompressPdfRoute: CompressPdfRoute,
+  CsvToJsonRoute: CsvToJsonRoute,
   JpgToPdfRoute: JpgToPdfRoute,
+  JpgToPngRoute: JpgToPngRoute,
+  JsonToCsvRoute: JsonToCsvRoute,
+  JsonToYamlRoute: JsonToYamlRoute,
   MergePdfRoute: MergePdfRoute,
+  Mp4ToMp3Route: Mp4ToMp3Route,
   OcrPdfRoute: OcrPdfRoute,
   PdfToWordRoute: PdfToWordRoute,
+  PngToJpgRoute: PngToJpgRoute,
   PrivacyRoute: PrivacyRoute,
+  RotatePdfRoute: RotatePdfRoute,
+  SplitPdfRoute: SplitPdfRoute,
   TermsRoute: TermsRoute,
   WordToPdfRoute: WordToPdfRoute,
+  XmlToJsonRoute: XmlToJsonRoute,
+  YamlToJsonRoute: YamlToJsonRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}

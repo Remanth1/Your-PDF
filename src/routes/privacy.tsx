@@ -4,7 +4,7 @@ export const Route = createFileRoute("/privacy")({
   head: () => ({
     meta: [
       { title: "Privacy Policy | Fileforge" },
-      { name: "description", content: "Fileforge processes files entirely in your browser. We do not collect or store your documents." },
+      { name: "description", content: "How Fileforge handles your files, analytics, and privacy." },
     ],
   }),
   component: PrivacyPage,
@@ -17,8 +17,7 @@ function PrivacyPage() {
       <p>Last updated: {new Date().toLocaleDateString()}</p>
       <h2>The short version</h2>
       <p>
-        Fileforge does its conversions <strong>entirely in your browser</strong>. Your files
-        are never uploaded to our servers. There are no accounts, no logins, and no file storage.
+        Fileforge is built to keep document work private. Most tools run <strong>entirely in your browser</strong>, so your files stay on your device unless a specific workflow explicitly needs a server-assisted step.
       </p>
       <h2>What we don't collect</h2>
       <ul>
@@ -27,13 +26,12 @@ function PrivacyPage() {
       </ul>
       <h2>What we may collect</h2>
       <p>
-        Basic, anonymized website analytics (page views, country, referrer) to understand how
-        the site is used. No personal data and no document data is included.
+        Basic, anonymized website analytics such as page views and referrers to understand how the site is used. We do not include document contents in analytics.
       </p>
       <h2>Cookies</h2>
-      <p>We use only essential cookies required for the site to function.</p>
+      <p>We use only essential cookies required for the site to function and, where needed, to remember lightweight preferences.</p>
       <h2>Contact</h2>
-      <p>Questions about privacy? Reach out via the contact link in the footer.</p>
+      <p>Questions about privacy? Reach out through the footer links on the site.</p>
     </article>
   );
 }

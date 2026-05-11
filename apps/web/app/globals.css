@@ -1,0 +1,29 @@
+:root {
+  --bg: #f6f8fb;
+  --fg: #0f172a;
+  --card: #ffffff;
+  --primary: #0ea5e9;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: radial-gradient(circle at 10% 10%, #e0f2fe, #f8fafc 40%, #eef2ff 100%);
+  color: var(--fg);
+  font-family: "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+main {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 2rem 1rem 4rem;
+}
+
+.upload-card {
+  background: var(--card);
+  border-radius: 18px;
+  padding: 1.25rem;
+  border: 1px solid #dbe4ef;
+  box-shadow: 0 14px 35px -25px rgba(2, 6, 23, 0.35);
+}

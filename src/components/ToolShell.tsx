@@ -19,10 +19,7 @@ interface ToolShellProps {
 export function ToolShell({ title, tagline, description, children, howItWorks, faqs }: ToolShellProps) {
   return (
     <div>
-      <section
-        className="border-b border-border"
-        style={{ background: "var(--gradient-soft)" }}
-      >
+      <section className="border-b border-border bg-[image:var(--gradient-soft)]">
         <div className="mx-auto max-w-3xl px-4 py-12 text-center">
           <PrivacyBadge />
           <h1 className="mt-4 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">

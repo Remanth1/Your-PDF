@@ -1,0 +1,24 @@
+{
+  "name": "@fileforge/worker",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx src/index.ts",
+    "build": "tsc -p tsconfig.json",
+    "start": "node dist/index.js",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test:smoke": "tsx src/smoke.ts"
+  },
+  "dependencies": {
+    "@fileforge/converters": "file:../../packages/converters",
+    "@fileforge/shared": "file:../../packages/shared",
+    "bullmq": "^5.58.5",
+    "ioredis": "^5.6.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.16.5",
+    "tsx": "^4.20.4",
+    "typescript": "^5.8.3"
+  }
+}
