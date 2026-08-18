@@ -56,7 +56,7 @@ const callGroqAPI = async (prompt: string, systemPrompt?: string): Promise<strin
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      model: 'llama-3.1-8b-instant',
+      model: 'openai/gpt-oss-20b', // Uses the active open-source base models available on Groq
       messages: [
         ...(systemPrompt ? [{ role: 'system', content: systemPrompt }] : []),
         { role: 'user', content: prompt }
