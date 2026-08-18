@@ -1,39 +1,104 @@
-# YourPDF
+# YourPDF 📄✨
 
-## Summary
+[![React](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=white)](https://react.dev/)
+[![Vite](https://img.shields.io/badge/Vite-7-646CFF?logo=vite&logoColor=white)](https://vite.dev/)
+[![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-4-06B6D4?logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-**YourPDF** is a free, browser-first document utility web app built with React 19 + TypeScript + Tailwind CSS 4, where all file processing happens client-side in JavaScript—no files ever get uploaded to a server.
+**YourPDF** is a highly optimized, client-side document utility web application. It packages a wide collection of file-conversion, image-manipulation, data-format transformation, and AI-assisted workflows into a single interface. 
+
+All core operations occur **directly in the user's browser** via local JavaScript execution. No files are ever uploaded or transmitted to external processing servers, guaranteeing absolute data privacy.
 
 ---
 
-## Tech Stack
+## 🚀 Quick Start
 
-- **Framework**: React 19 + TypeScript + Tailwind CSS 4, bundled with Vite 7 using `vite-plugin-singlefile` to inline everything into one deployable `dist/index.html`.
-- **Libraries**: `pdf-lib`, `pdfjs-dist`, `jspdf` for PDFs; `docx`, `mammoth`, `xlsx`, `pptxgenjs` for document conversion; `tesseract.js` for OCR; `framer-motion` for animation.
+Get the local development server up and running:
 
-## Application Shell & Routing
+```bash
+# Clone the repository
+git clone https://github.com/Remanth1/Your-PDF.git
+cd Your-PDF
 
-`App.tsx` manages global `darkMode` and `searchQuery` state, wraps everything in a `HashRouter`, and defines routes for the home page, dynamic tool pages (`/tools/:toolId`), and static pages (About, Contact, Privacy, Terms).
+# Install dependencies
+npm install
 
-## Tool Registry (Data Layer)
+# Run the development server
+npm run dev
 
-`src/data/tools.ts` is the single source of truth defining all ~27 tools with `id`, `name`, `description`, `icon`, `category`, `badge`, and optional `limitations`. Categories include PDF, Document, Image, Data, and AI tools. It also holds the `faqs` array used by the `FAQ` component.
+# Build for production (single-file distribution)
+npm run build
+```
 
-## Processing Engine
+---
 
-`ToolPage.tsx` reads `toolId` from the URL and dispatches to the matching utility function—e.g. `mergePDFs`, `compressPDF`, `pdfToWord`, `summarizePDF`, `ocrPDF`—via a large `switch` statement. AI summarization and chat, for example, use the Groq API (powered by `llama-3.3-70b-versatile`) with local context extraction implemented in `src/utils/aiTools.ts`.
+## 🛠️ Tech Stack
 
-## UI Component Library
+*   **Core UI**: React 19 + TypeScript + Tailwind CSS 4
+*   **Build Pipeline**: Vite 7 + `vite-plugin-singlefile` (inlines all CSS/JS assets directly into a single deployable `dist/index.html` file)
+*   **Libraries**:
+    *   **PDF Manipulation**: `pdf-lib`, `pdfjs-dist`, `jspdf`
+    *   **Document Conversion**: `docx`, `mammoth`, `xlsx`, `pptxgenjs`
+    *   **Optical Character Recognition (OCR)**: `tesseract.js`
+    *   **Animation**: `framer-motion`
+    *   **Icons**: `lucide-react`
 
-Components live in `src/components/` and share a `darkMode` theming prop and `framer-motion` animations: `PageLayout`, `Header`, `Footer`, `Hero`, `ToolGrid`/`ToolCard`, `HowItWorks`, `Benefits`, `Testimonials`, `Pricing`, `FAQ`, `CTA`. Examples: `Hero.tsx`'s search bar and popular-tool chips, `HowItWorks.tsx`'s 3-step visualization, `Testimonials.tsx`'s stats/testimonial cards, and `FAQ.tsx`'s accordion.
+---
 
-## Static/Informational Pages
+## ⚙️ Architecture & Data Layer
 
-- `AboutPage.tsx` — mission, story, values.
-- `PrivacyPage.tsx` — data collection/security policy.
-- `sitemap.xml` lists all public routes including individual tool pages.
+### 1. Application Shell & Routing (`App.tsx`)
+Global state for `darkMode` and `searchQuery` is managed at the root level. Routing is handled via `HashRouter` (allowing easy static hosting without needing server rewrite rules) serving:
+*   `HomePage.tsx` — Dashboard view with tools grid.
+*   `ToolPage.tsx` — The interactive workspace.
+*   Static informational pages (`AboutPage.tsx`, `ContactPage.tsx`, `PrivacyPage.tsx`, `TermsPage.tsx`).
 
-## Notes
+### 2. Tool Registry (`src/data/tools.ts`)
+Serves as the single source of truth defining all ~27 tool entries (`id`, `name`, `description`, `icon`, `category`, `badge`, `limitations`) and the structured content for the accordion-based FAQ component.
 
-- There's an `api/package.json` and `.env.example` referencing `VITE_API_URL`, which appears to be a separate backend/server-side experiment — it's not clearly wired into the main client-first architecture described in the README's "100% local processing" claim, so treat it as a possibly distinct/legacy subsystem rather than core to the privacy-first design.
-- `PrivacyPage.tsx`'s claim about files being "transmitted using SSL" and "processed on secure servers" contradicts the README's "processing happens locally" claim — this is likely boilerplate/generic privacy-policy text rather than an accurate description of the actual architecture.
+### 3. Processing Engine (`ToolPage.tsx`)
+Listens to the active `:toolId` route parameter and dispatches files to their matching helper functions using a routing `switch` statement:
+*   **PDF operations**: `mergePDFs`, `compressPDF`, `rotatePDF`, `addPageNumbers`, `addWatermark`
+*   **Image operations**: `compressImage`, `resizeImage`, `cropImage`, `pdfToJpg`
+*   **Data operations**: `csvToExcel`, `excelToCsv`, `json-to-csv`, `xmlToJson`
+*   **AI/OCR workflows**: `summarizePDF`, `chatWithPDF`, `ocrPDF`
+
+---
+
+## 🤖 AI Features (Groq API Integration)
+
+AI summaries and document chat features are powered by the **Groq API** (using the fast `llama-3.1-8b-instant` model) via direct browser fetch requests. 
+
+*   **Setup**: Configure your key in a `.env` file at the root level:
+    ```env
+    VITE_GROQ_API_KEY=your_groq_api_key_here
+    ```
+*   **Execution**: Text is extracted locally using `pdfjs-dist`, key context is matched, and context-bound prompts are sent directly to Groq.
+
+---
+
+## 📂 Project Structure
+
+```text
+.
+├── .env.example            # Sample configuration template
+├── index.html              # Vite HTML entry point and SEO metatags
+├── vite.config.ts          # Vite asset pipeline configuration
+├── sitemap.xml             # XML sitemap for dynamic tool routes
+├── robots.txt              # Crawler instructions
+├── src/
+│   ├── App.tsx             # Main shell & client routing
+│   ├── main.tsx            # React entry point
+│   ├── components/         # Reusable UI components (Header, Footer, Hero, ToolGrid)
+│   ├── data/               # Static datasets and tool definitions (tools.ts)
+│   ├── pages/              # Main route views (HomePage, ToolPage, AboutPage)
+│   └── utils/              # Client-side core conversion utility helpers
+└── api/                    # Isolated backend/server-side code (Distinct experiment)
+```
+
+---
+
+## 📝 Developer Notes
+
+*   **The `api/` Directory**: An isolated `api/` directory (Node.js/Express service) and references to `VITE_API_URL` exist in `.env.example`. This represents a separate backend prototype and is not coupled to the main browser-first architecture.
+*   **Boilerplate Notice**: Some texts in `PrivacyPage.tsx` referencing file transmission to "secure servers" and "SSL encryption" represent generic template wording. All file processing in YourPDF is strictly client-side and runs 100% locally.
