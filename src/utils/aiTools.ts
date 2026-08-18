@@ -42,7 +42,39 @@ const extractTextFromPDF = async (
   };
 };
 
-// AI Summarize - Extractive summarization
+// Helper to call Groq API
+const callGroqAPI = async (prompt: string, systemPrompt?: string): Promise<string> => {
+  const apiKey = import.meta.env.VITE_GROQ_API_KEY || '';
+  if (!apiKey) {
+    throw new Error('Groq API key is missing. Please configure VITE_GROQ_API_KEY in your .env file.');
+  }
+
+  const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${apiKey}`,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      model: 'llama-3.3-70b-versatile',
+      messages: [
+        ...(systemPrompt ? [{ role: 'system', content: systemPrompt }] : []),
+        { role: 'user', content: prompt }
+      ],
+      temperature: 0.3
+    })
+  });
+
+  if (!response.ok) {
+    const errorData = await response.json().catch(() => ({}));
+    throw new Error(errorData.error?.message || `Groq API request failed: ${response.statusText}`);
+  }
+
+  const data = await response.json();
+  return data.choices[0]?.message?.content || '';
+};
+
+// AI Summarize - Extractive summarization using Groq
 export const summarizePDF = async (
   file: File,
   summaryLength: 'short' | 'medium' | 'long' = 'medium',
@@ -55,71 +87,18 @@ export const summarizePDF = async (
     throw new Error('No text found in PDF. The document might be scanned - try using OCR instead.');
   }
   
-  if (onProgress) onProgress('Generating summary...');
+  if (onProgress) onProgress('Generating summary via Groq...');
   
-  // Split into sentences
-  const sentences = fullText
-    .replace(/\s+/g, ' ')
-    .split(/(?<=[.!?])\s+/)
-    .filter(s => s.trim().length > 20);
-  
-  if (sentences.length === 0) {
-    throw new Error('Could not extract meaningful sentences from the document.');
-  }
-  
-  // Score sentences based on various factors
-  const wordFreq: Record<string, number> = {};
-  const words = fullText.toLowerCase().match(/\b[a-z]{4,}\b/g) || [];
-  
-  // Stop words to ignore
-  const stopWords = new Set([
-    'this', 'that', 'these', 'those', 'have', 'been', 'were', 'being',
-    'would', 'could', 'should', 'which', 'their', 'there', 'about',
-    'from', 'with', 'they', 'what', 'when', 'where', 'will', 'more',
-    'also', 'very', 'just', 'only', 'some', 'such', 'than', 'into'
-  ]);
-  
-  words.forEach(word => {
-    if (!stopWords.has(word)) {
-      wordFreq[word] = (wordFreq[word] || 0) + 1;
-    }
-  });
-  
-  // Score each sentence
-  const scoredSentences = sentences.map((sentence, index) => {
-    const sentenceWords = sentence.toLowerCase().match(/\b[a-z]{4,}\b/g) || [];
-    let score = 0;
-    
-    // Word frequency score
-    sentenceWords.forEach(word => {
-      score += wordFreq[word] || 0;
-    });
-    
-    // Normalize by sentence length
-    score = score / Math.max(sentenceWords.length, 1);
-    
-    // Boost first sentences (often contain key info)
-    if (index < 3) score *= 1.5;
-    
-    // Boost sentences with key phrases
-    const keyPhrases = ['important', 'significant', 'conclusion', 'result', 'therefore', 'summary', 'key', 'main', 'primary'];
-    keyPhrases.forEach(phrase => {
-      if (sentence.toLowerCase().includes(phrase)) score *= 1.3;
-    });
-    
-    return { sentence, score, index };
-  });
-  
-  // Sort by score and select top sentences
-  const targetCounts = { short: 3, medium: 5, long: 8 };
-  const targetCount = Math.min(targetCounts[summaryLength], sentences.length);
-  
-  const topSentences = scoredSentences
-    .sort((a, b) => b.score - a.score)
-    .slice(0, targetCount)
-    .sort((a, b) => a.index - b.index); // Restore original order
-  
-  const summary = topSentences.map(s => s.sentence.trim()).join(' ');
+  const lengthInstruction = {
+    short: 'Write a very brief summary (around 2-3 paragraphs or bullet points).',
+    medium: 'Write a medium-length detailed summary (around 4-6 paragraphs or detailed bullet points).',
+    long: 'Write a comprehensive, deep-dive summary outlining all key arguments, sections, and findings.'
+  }[summaryLength];
+
+  const prompt = `Here is the full text of the document named "${file.name}":\n\n${fullText.substring(0, 40000)}\n\n${lengthInstruction}`;
+  const systemPrompt = 'You are a helpful document summarizer. Summarize the text provided clearly and objectively.';
+
+  const summary = await callGroqAPI(prompt, systemPrompt);
   
   // Save summary as text file
   const blob = new Blob([
@@ -138,7 +117,7 @@ export const summarizePDF = async (
   return summary;
 };
 
-// Chat with PDF - Search and find relevant content
+// Chat with PDF - Search and find relevant content using Groq
 export const chatWithPDF = async (
   file: File,
   question: string,
@@ -151,7 +130,7 @@ export const chatWithPDF = async (
     throw new Error('No text found in PDF.');
   }
   
-  if (onProgress) onProgress('Searching for relevant content...');
+  if (onProgress) onProgress('Searching context & generating answer via Groq...');
   
   // Extract keywords from question
   const questionWords = question.toLowerCase()
@@ -194,22 +173,22 @@ export const chatWithPDF = async (
   const relevantChunks = scoredChunks
     .filter(c => c.score > 0)
     .sort((a, b) => b.score - a.score)
-    .slice(0, 3)
+    .slice(0, 4)
     .map(c => c.chunk.trim());
   
-  if (relevantChunks.length === 0) {
-    return {
-      answer: `I couldn't find specific information about "${question}" in this document. The document may not contain information related to your question, or try rephrasing with different keywords.`,
-      relevantPassages: []
-    };
-  }
-  
-  // Generate answer based on relevant chunks
-  const answer = `Based on the document, here's what I found related to your question:\n\n${relevantChunks.map((chunk, i) => `[Passage ${i + 1}]\n${chunk.substring(0, 500)}${chunk.length > 500 ? '...' : ''}`).join('\n\n')}`;
+  // Use the relevant chunks as context if found, otherwise send the document start as context
+  const contextText = relevantChunks.length > 0 
+    ? relevantChunks.join('\n\n') 
+    : fullText.substring(0, 8000);
+
+  const prompt = `Context from the document "${file.name}":\n\n${contextText}\n\nQuestion: ${question}\n\nAnswer the question concisely using only the provided context. If the answer cannot be found in the context, say "I cannot find the answer in the document."`;
+  const systemPrompt = 'You are a document QA assistant. Answer the user\'s question accurately based on the provided context.';
+
+  const answer = await callGroqAPI(prompt, systemPrompt);
   
   return {
     answer,
-    relevantPassages: relevantChunks
+    relevantPassages: relevantChunks.length > 0 ? relevantChunks : [contextText.substring(0, 1000)]
   };
 };
 
