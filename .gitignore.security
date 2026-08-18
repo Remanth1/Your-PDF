@@ -1,0 +1,45 @@
+# Security: Never commit these files
+.env
+.env.local
+.env.*.local
+.env.production.local
+
+# Secret files
+*.key
+*.pem
+*.secret
+.ssh/
+
+# Dependencies security
+node_modules/
+package-lock.json
+
+# Build artifacts
+dist/
+build/
+
+# IDE secrets
+.vscode/settings.json
+.idea/
+
+# OS secrets
+.DS_Store
+Thumbs.db
+
+# Logs (may contain sensitive data)
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Coverage (may contain paths)
+coverage/
+
+# Cache
+.cache/
+.next/
+
+# Temporary
+tmp/
+temp/

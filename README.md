@@ -469,3 +469,24 @@ Repository-specific contribution guidelines were not detected in the current cod
 
 If you are extending the project, keep changes aligned with the browser-first architecture and verify the affected command paths before opening a pull request.
 
+## Roadmap
+
+The current codebase suggests the following areas are still in progress:
+
+- Tools marked as `Coming Soon` in `src/data/tools.ts`, including PDF protection, PDF unlocking, video compression, video conversion, audio extraction, audio conversion, and AI translation.
+- Beta tools that already exist but have documented limitations, including PDF to Word, Word to PDF, PDF to Excel, PDF to PowerPoint, and PPT to PDF.
+- The API page in the frontend references additional `/v1/...` endpoints that are not yet implemented in the current server codebase.
+
+## License
+
+Not detected in the current codebase.
+
+## Acknowledgements
+
+Not detected in the current codebase.
+
+The project relies on open-source packages including React, Vite, Tailwind CSS, pdf-lib, Sharp, FFmpeg, Tesseract.js, and Express.
+
+## Screenshots
+
+> Screenshots can be added under `docs/screenshots/`.

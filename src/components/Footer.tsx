@@ -1,51 +1,117 @@
-import { Link } from "@tanstack/react-router";
+import { Link } from 'react-router-dom';
+import { FileText } from 'lucide-react';
 
-export function Footer() {
+const footerLinks = {
+  'PDF Tools': [
+    { label: 'Merge PDF', path: '/tools/merge-pdf' },
+    { label: 'Split PDF', path: '/tools/split-pdf' },
+    { label: 'Compress PDF', path: '/tools/compress-pdf' },
+    { label: 'Rotate PDF', path: '/tools/rotate-pdf' },
+    { label: 'Watermark PDF', path: '/tools/watermark-pdf' },
+  ],
+  'Convert': [
+    { label: 'PDF to Word', path: '/tools/pdf-to-word' },
+    { label: 'Word to PDF', path: '/tools/word-to-pdf' },
+    { label: 'PDF to Excel', path: '/tools/pdf-to-excel' },
+    { label: 'PDF to JPG', path: '/tools/pdf-to-jpg' },
+    { label: 'JPG to PDF', path: '/tools/jpg-to-pdf' },
+    { label: 'PDF to PowerPoint', path: '/tools/pdf-to-pptx' },
+  ],
+  'Company': [
+    { label: 'About Us', path: '/about' },
+    { label: 'Contact', path: '/contact' },
+  ],
+  'Legal': [
+    { label: 'Privacy Policy', path: '/privacy' },
+    { label: 'Terms of Service', path: '/terms' },
+  ],
+};
+
+const socialLinks = [
+  { label: '𝕏', ariaLabel: 'Twitter / X' },
+  { label: 'in', ariaLabel: 'LinkedIn' },
+  { label: '▶', ariaLabel: 'YouTube' },
+  { label: '◆', ariaLabel: 'GitHub' },
+];
+
+interface FooterProps {
+  darkMode: boolean;
+}
+
+export default function Footer({ darkMode }: FooterProps) {
   return (
-    <footer className="border-t border-border bg-background">
-      <div className="mx-auto max-w-6xl px-4 py-10 text-sm text-muted-foreground">
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-4">
-          <div>
-            <h4 className="mb-2 font-semibold text-foreground">Fileforge</h4>
-            <p className="text-xs">© {new Date().getFullYear()} Fileforge. Files never leave your browser.</p>
+    <footer className={`pt-16 pb-8 ${darkMode ? 'bg-gray-900 border-t border-gray-800' : 'bg-white border-t border-border'}`}>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 mb-12">
+          {/* Brand */}
+          <div className="col-span-2 md:col-span-3 lg:col-span-1">
+            <Link to="/" className="flex items-center gap-2.5 mb-4">
+              <div className="w-9 h-9 bg-primary rounded-xl flex items-center justify-center">
+                <FileText className="w-5 h-5 text-white" />
+              </div>
+              <span className={`text-xl font-bold ${darkMode ? 'text-white' : 'text-secondary'}`}>
+                Your<span className="text-primary">PDF</span>
+              </span>
+            </Link>
+            <p className={`text-sm leading-relaxed mb-6 max-w-xs ${darkMode ? 'text-gray-400' : 'text-muted-foreground'}`}>
+              Every file tool you need, in one place. Fast, secure, and free online file conversion tools.
+            </p>
+            <div className="flex gap-3">
+              {socialLinks.map((social, i) => (
+                <a
+                  key={i}
+                  href="#"
+                  className={`w-9 h-9 rounded-xl flex items-center justify-center text-xs font-bold transition-colors ${
+                    darkMode
+                      ? 'bg-gray-800 text-gray-400 hover:bg-gray-700 hover:text-white'
+                      : 'bg-gray-100 text-gray-500 hover:bg-gray-200 hover:text-secondary'
+                  }`}
+                  aria-label={social.ariaLabel}
+                >
+                  {social.label}
+                </a>
+              ))}
+            </div>
           </div>
 
-          <div>
-            <h4 className="mb-2 font-semibold text-foreground">Product</h4>
-            <ul className="space-y-1">
-              <li><Link to="/" className="hover:text-foreground">Home</Link></li>
-              <li><a href="/#features" className="hover:text-foreground">Features</a></li>
-              <li><a href="/#tools" className="hover:text-foreground">Tools</a></li>
-              <li><a href="/#faq" className="hover:text-foreground">FAQs</a></li>
-            </ul>
-          </div>
-
-          <div>
-            <h4 className="mb-2 font-semibold text-foreground">Company</h4>
-            <ul className="space-y-1">
-              <li><Link to="/privacy" className="hover:text-foreground">Privacy</Link></li>
-              <li><Link to="/terms" className="hover:text-foreground">Terms &amp; conditions</Link></li>
-              <li><Link to="/about" className="hover:text-foreground">About us</Link></li>
-            </ul>
-          </div>
-
-          <div>
-            <h4 className="mb-2 font-semibold text-foreground">Resources</h4>
-            <ul className="space-y-1">
-              <li><Link to="/" className="hover:text-foreground">Help Center</Link></li>
-              <li><a href="/" className="hover:text-foreground">Blog</a></li>
-              <li><a href="/" className="hover:text-foreground">Developers</a></li>
-            </ul>
-          </div>
+          {/* Link Columns */}
+          {Object.entries(footerLinks).map(([title, links]) => (
+            <div key={title}>
+              <h4 className={`text-sm font-semibold mb-4 ${darkMode ? 'text-white' : 'text-secondary'}`}>
+                {title}
+              </h4>
+              <ul className="space-y-2.5">
+                {links.map((link) => (
+                  <li key={link.path}>
+                    <Link
+                      to={link.path}
+                      className={`text-sm transition-colors inline-flex items-center gap-1 ${
+                        darkMode ? 'text-gray-400 hover:text-white' : 'text-muted-foreground hover:text-secondary'
+                      }`}
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
         </div>
 
-        <div className="mt-6 border-t border-border pt-4 text-xs text-muted-foreground">
-          <div className="flex flex-col items-start gap-2 sm:flex-row sm:items-center sm:justify-between">
-            <div>Built with privacy in mind — no uploads, no tracking by default.</div>
-            <div className="flex gap-4">
-              <Link to="/privacy" className="hover:text-foreground">Privacy</Link>
-              <Link to="/terms" className="hover:text-foreground">Terms</Link>
-            </div>
+        {/* Bottom bar */}
+        <div className={`pt-8 border-t flex flex-col sm:flex-row items-center justify-between gap-4 ${
+          darkMode ? 'border-gray-800' : 'border-border'
+        }`}>
+          <p className={`text-sm ${darkMode ? 'text-gray-500' : 'text-gray-400'}`}>
+            © {new Date().getFullYear()} YourPDF. All rights reserved.
+          </p>
+          <div className="flex items-center gap-6">
+            <Link to="/privacy" className={`text-sm ${darkMode ? 'text-gray-500 hover:text-gray-300' : 'text-gray-400 hover:text-gray-600'}`}>
+              Privacy
+            </Link>
+            <Link to="/terms" className={`text-sm ${darkMode ? 'text-gray-500 hover:text-gray-300' : 'text-gray-400 hover:text-gray-600'}`}>
+              Terms
+            </Link>
           </div>
         </div>
       </div>
